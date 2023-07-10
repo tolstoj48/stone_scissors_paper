@@ -83,7 +83,7 @@ class Player:
         return
 
 
-class Player_human(Player):
+class PlayerHuman(Player):
     def __init__(self, name=None):
         if name:
             self.name = name
@@ -112,7 +112,7 @@ class Player_human(Player):
         return "Anonymous"
 
 
-class Player_PC(Player):
+class PlayerPc(Player):
     def __init__(self, name="Computer"):
         super().__init__(name)
 
@@ -128,19 +128,19 @@ if __name__ == "__main__":
         print("You are supposed to provide max. two arguments - first is your name, second is the number of wins to play to.")
     # if there is name and number from cmd line - suppose user wants to play against computer
     if len(sys.argv) == 3:
-        player_1 = Player_human(sys.argv[1])
-        player_2 = Player_PC()
+        player_1 = PlayerHuman(sys.argv[1])
+        player_2 = PlayerPc()
         game = Game(player_1, player_2, sys.argv[2])
         game.play()
     # if there is only number of wins to play to from cmd line - play default game computer vs. computer
     elif len(sys.argv) == 2:
-        player_1 = Player_PC()
-        player_2 = Player_PC()
+        player_1 = PlayerPc()
+        player_2 = PlayerPc()
         game = Game(player_1, player_2)
         game.play()
     # if there is no argument from cmd line - play default game computer vs. player
     elif len(sys.argv) == 1:
-        player_1 = Player_human()
-        player_2 = Player_PC()
+        player_1 = PlayerHuman()
+        player_2 = PlayerPc()
         game = Game(player_1, player_2)
         game.play()
