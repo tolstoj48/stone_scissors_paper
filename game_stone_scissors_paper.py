@@ -6,15 +6,41 @@ import sys
 
 
 class Game:
-    """A class to represent the Stone, scissors, paper game."""
+    """A class to represent the Stone, scissors, paper game.
+
+    Attributes
+    ----------
+    player_1 : instance of Player class
+        the first instance of Player class - player that plays
+    player_2 : instance of Player Class
+        the second instance of Player class - player that plays
+    num_of_wins : int
+        the number of wins to play to (default False)
+
+    Methods
+    -------
+    play()
+        Runs and assess the whole state of the game
+    """
 
     def __init__(self, player_1, player_2, num_of_wins=False):
+        """
+        Parameters
+        ----------
+        player_1 : instance of Player class
+            the first instance of Player class - player that plays
+        player_2 : instance of Player Class
+            the second instance of Player class - player that plays
+        num_of_wins : int
+            the number of wins to play to (default False)
+        """
+
         self.player_1 = player_1
         self.player_2 = player_2
         if int(num_of_wins):
             self.num_of_wins = int(num_of_wins)
         else:
-            self.num_of_wins = self.fetch_num_of_wins()
+            self.num_of_wins = self.__fetch_num_of_wins()
         self.score = [0, 0]
 
     def play(self):
@@ -35,12 +61,12 @@ class Game:
                 self.score[1] += 1
             elif roll_1 == 1 and roll_2 == 3:
                 self.score[1] += 1
-            state = self.evaluate()
+            state = self.__evaluate()
             if state:
-                self.end_game()
+                self.__print_result()
                 break
 
-    def fetch_num_of_wins(self):
+    def __fetch_num_of_wins(self):
         num_of_wins = False
         while not num_of_wins:
             try:
@@ -54,19 +80,19 @@ class Game:
                 num_of_wins = False
         return int(num_of_wins)
 
-    def evaluate(self):
-        self.show_score()
+    def __evaluate(self):
+        self.__show_score()
         if self.score[0] == self.num_of_wins or self.score[1] == self.num_of_wins:
             return True
 
-    def show_score(self):
+    def __show_score(self):
         print('--------------------------------------------')
         print(
             f'The score is {self.player_1.name}: {self.score[0]} and {self.player_2.name}: {self.score[1]}!')
         print('--------------------------------------------')
         return
 
-    def end_game(self):
+    def __print_result(self):
         if self.score[0] > self.score[1]:
             print(f'And the winner is {self.player_1.name}!!!')
         else:
